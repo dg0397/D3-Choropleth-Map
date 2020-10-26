@@ -3,9 +3,9 @@ async function drawMap(){
 
     //Fetching data
 
-    const {monthlyVariance: dataset , baseTemperature} = await d3.json("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json");
-
-    const colorData = ["#e2f4ff","#bbe1fa","#3282b8","#0f4c75","#651441","#942246","#d54153","#f45d51"]
+    const countyShapes = await d3.json("https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json")
+    const dataset = await d3.json("https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json")
+    
 
     //Seeting accesors functions 
 
