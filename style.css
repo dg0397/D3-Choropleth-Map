@@ -26,7 +26,7 @@ header{
     color: white;
     font-size: 1.5rem;
 }
-/*Wrapper SVG*/
+/*Wrapper Container*/
 #wrapper{
     display: grid;
     grid-template-areas: 
@@ -35,6 +35,7 @@ header{
     "map description";
     grid-template-rows: repeat(3,1fr);
 }
+/*Svg Container*/
 #canvas{
     grid-area: map;
 }
@@ -46,10 +47,11 @@ header{
     min-height: 650px;
 }
 svg .county:hover{
-    stroke: white ;
+    stroke: #1c1c1c ;
     stroke-width: 1px;
     opacity: .9;
 }
+/*Tooltip styles*/
 #tooltip{
     grid-area: tooltip;
     width: 50%;
@@ -67,7 +69,7 @@ svg .county:hover{
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 5px 5px 10px #1c1c1c;
-    opacity: 1;
+    opacity: 0;
     pointer-events: none;
     transition: opacity .2s ease ;
 }
@@ -86,9 +88,8 @@ svg .county:hover{
     padding: .5rem;
     background-color: white;
     border-radius:20px ;
-}
-#legend .rect{
-    stroke: #1b262c;
+    opacity: 0;
+    transition: opacity .2s ease ;
 }
 #description{
     grid-area: description;
@@ -99,6 +100,8 @@ svg .county:hover{
     text-align: center;
     font-style: italic;
     font-size: 1.3rem;
+    opacity: 0;
+    transition: opacity .2s ease ;
 }
 /*Footer*/
 footer{

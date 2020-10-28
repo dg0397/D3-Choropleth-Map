@@ -13,8 +13,6 @@ async function drawMap(){
     //Seeting accesors functions '
 
     const countyIdAccessor = d => d.id
-    console.log(dataset)
-    console.log(countyData)
 
     let metricDataByCounty = {}
 
@@ -36,25 +34,6 @@ async function drawMap(){
             left: 60,
         },
     }
-
-    //dimensions.boundedWidth = dimensions.width - dimensions.margin.left  - dimensions.margin.right ;
-
-    ////Setting projection
-//
-    //const Rect = ({type: "Sphere"})
-//
-    //const projection = d3.geoAlbersUsa()
-    //                        .fitWidth(dimensions.boundedWidth,Rect)
-//
-    //const pathGenerator = d3.geoPath(projection)
-//
-    //const [[x0, y0], [x1, y1]] = pathGenerator.bounds(Rect)
-//
-//
-    //dimensions.boundedHeight = y1
-    //dimensions.height = dimensions.boundedHeight + dimensions.margin.top + dimensions.margin.bottom
-
-
     //3) Draw Canvas 
 
     //adding main svg 
@@ -83,51 +62,51 @@ async function drawMap(){
 
      //5) Draw Data
 
-    // const map = bounds.append("path")
-    //                        .attr("class", "earth")
-    //                        .attr("d", pathGenerator(Rect))
+    //selecting tooltip
+
+    const tooltip = d3.select('#tooltip');
+
+    //selecting legend
+    const legend = d3.select('#legend')
+
+    //selecting description
+
+    const description = d3.select('#description')
+
+    //setting transition 
+    const updateTransition = d3.transition().duration(1000);
+    
+
+
+    ////drawing counties
 
     const counties = bounds.selectAll(".county")
                                 .data(countyData)
                                 .enter().append("path")
                                 .attr("class", "county")
                                 .attr("d", d3.geoPath())
-                                .style('fill',d => {
-                                    const metricValue = metricDataByCounty[countyIdAccessor(d)]
-                                    if (typeof metricValue == "undefined") return "#e2e6e9"
-                                    return colorScale(metricValue)
-                                })
+                                .attr('fill', 'white')
                                 .attr('data-fips', d => countyIdAccessor(d))
                                 .attr('data-education', d => metricDataByCounty[countyIdAccessor(d)])
 
-
-    //selecting tooltip 
-
-    const tooltip = d3.select('#tooltip');
-
-    //setting transition 
-
-    
-
-
-    ////drawing cells
-
-    //setting cell dimensions  
-    
-
-    //addding cells
     
                             
-    //adding transition to cells
-
+    //adding transition to counties,legend,description
+    counties.transition(updateTransition)
+            .attr('fill',d => {
+                const metricValue = metricDataByCounty[countyIdAccessor(d)]
+                if (typeof metricValue == "undefined") return "#e2e6e9"
+                return colorScale(metricValue)
+            }) 
     
-
-    //6)Draw Peripherals
-
-    //settup legend
-
-
-    //7) Set up Interactions
+    
+    description.transition(updateTransition)
+                        .style('opacity','1')
+    
+    
+    legend.transition(updateTransition)
+        .style('opacity','1')
+    
 
     //7) Set up Interactions
 
