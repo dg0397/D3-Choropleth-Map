@@ -59,15 +59,14 @@ async function drawMap(){
 
     //adding main svg 
 
-    const wrapper = d3.select("#wrapper")
+    const canvas = d3.select("#canvas")
                         .append('svg')
                         .attr('width',dimensions.width)
-                        .style('min-height','700px')
                         .style('fill','aliceblue')
 
     //adding bound(framework or whiteboard)
 
-    const bounds = wrapper.append('g')
+    const bounds = canvas.append('g')
                             .style('transform', `translate(${
                                 dimensions.margin.left
                             }px, ${
@@ -78,13 +77,9 @@ async function drawMap(){
 
     //Setting scales
     const metricValues = Object.values(metricDataByCounty)
-
-    const metricValueExtent = d3.extent(metricValues)
-
-    const maxChange = d3.max([-metricValueExtent[0], metricValueExtent[1]])
     const colorScale = d3.scaleLinear()
-                            .domain([-maxChange, 0, maxChange])
-                            .range(["indigo", "white", "darkgreen"])                        
+                            .domain(d3.extent(metricValues))
+                            .range(["white", "darkgreen"])                        
 
      //5) Draw Data
 
@@ -92,7 +87,7 @@ async function drawMap(){
     //                        .attr("class", "earth")
     //                        .attr("d", pathGenerator(Rect))
 
-    const countries = bounds.selectAll(".county")
+    const counties = bounds.selectAll(".county")
                                 .data(countyData)
                                 .enter().append("path")
                                 .attr("class", "county")
@@ -105,9 +100,10 @@ async function drawMap(){
                                 .attr('data-fips', d => countyIdAccessor(d))
                                 .attr('data-education', d => metricDataByCounty[countyIdAccessor(d)])
 
+
     //selecting tooltip 
 
-    
+    const tooltip = d3.select('#tooltip');
 
     //setting transition 
 
@@ -128,17 +124,32 @@ async function drawMap(){
 
     //6)Draw Peripherals
 
-    //Setting axis 
-    
-    //Adding X axis 
-    
-
-    //Adding Y axis 
-    
-
     //settup legend
 
 
     //7) Set up Interactions
+
+    //7) Set up Interactions
+
+    counties.on("mouseenter", onMouseEnter)
+        .on("mouseleave", onMouseLeave)
+
+    function onMouseEnter(datum,index){
+    
+        tooltip.attr("data-education",metricDataByCounty[countyIdAccessor(index)])
+                .style('opacity',1)
+
+
+        //Updating tooltip information
+        const point = dataset.find(location => location.fips === countyIdAccessor(index))
+        //console.log(point)
+
+        tooltip.select("#education").text(`bachelor's Or Higher: ${point.bachelorsOrHigher}%`);
+        tooltip.select("#location").text(`${point.fips} - ${point.state}. ${point.area_name}`)
+    }
+
+    function onMouseLeave(datum,index){
+        tooltip.style('opacity',0)
+    }
 }
 drawMap()

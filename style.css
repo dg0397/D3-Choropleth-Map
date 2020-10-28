@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+body{
+    background-image: linear-gradient(260deg, #3c1d3a 0%, #1b262c 100%);
+    padding: 1rem;
+    width: 100%;
+    height: 100vh;
+}
+/*Main container*/
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+/*Header*/
+header{
+    font-style: italic;
+    font-weight: 300;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+}
+/*Wrapper SVG*/
+#wrapper{
+    display: grid;
+    grid-template-areas: 
+    "map tooltip"
+    "map legend"
+    "map description";
+    grid-template-rows: repeat(3,1fr);
+}
+#canvas{
+    grid-area: map;
+}
+#canvas svg{
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 5px 10px 10px #1c1c1c;
+    color: #1c1c1c;
+    min-height: 650px;
+}
+svg .county:hover{
+    stroke: white ;
+    stroke-width: 1px;
+    opacity: .9;
+}
+#tooltip{
+    grid-area: tooltip;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    background-color:white;
+    color: #1c1c1c;
+    text-align: center;
+    font-size: 1.3rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #1c1c1c;
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity .2s ease ;
+}
+.container-legend{
+    grid-area: legend;
+    height: 100%;
+}
+#legend{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .8rem;
+    font-style: italic;
+    width: 50%;
+    margin: auto;
+    padding: .5rem;
+    background-color: white;
+    border-radius:20px ;
+}
+#legend .rect{
+    stroke: #1b262c;
+}
+#description{
+    grid-area: description;
+    width: 80%;
+    margin: 0 auto;
+    color: white;
+    font-weight: 400;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.3rem;
+}
+/*Footer*/
+footer{
+    margin: .5rem auto;
+}
+footer p{
+    text-align: center;
+    color: aliceblue;
+}
+footer p a{
+    color: aliceblue;
+    letter-spacing: .1rem;
+}

@@ -14,11 +14,34 @@
     <section class="main">
         <header>
             <h1 id="title">United States Educational Attainment</h1>
-            <h3 id= "description">Percentage of adults age 25 and older with a bachelor's degree or higher (2010-2014)</h3>
         </header>
-        <div id = 'legend'></div>
         <div id="wrapper">
-            <div id="tooltip" ></div>
+            <div id = "canvas"></div>
+            <div id="tooltip" >
+                <p id = 'location' ></p>
+                <p id = 'education' ></p>
+            </div>
+            <div class="container-legend">
+                <svg id='legend'>
+                    <g>
+                        <rect x="10" y="0" width="40" height="40" fill="#e0ece0"></rect>
+                        <text x="60" y="20" fill="black">Less than 15%</text>
+                    </g>
+                    <g>
+                        <rect x="10" y="40" width="40" height="40" fill="#c0d9c0"></rect>
+                        <text x="60" y="60" fill="black">15% than 30%</text>
+                    </g>
+                    <g>
+                        <rect x="10" y="80" width="40" height="40" fill="#78ad78"></rect>
+                        <text x="60" y="100" fill="black">30% to 45%</text>
+                    </g>
+                    <g>
+                        <rect x="10" y="120" width="40" height="40" fill="#428c42"></rect>
+                        <text x="60" y="140" fill="black">More than 45%</text>
+                    </g>
+                </svg>
+            </div>
+            <h3 id= "description">Percentage of adults age 25 and older with a bachelor's degree or higher (2010-2014)</h3>
         </div>
         <footer>
             <p>Coded by <a href="https://github.com/dg0397" target = "_blank" rel="noopener noreferrer">DG0397</a></p>
